@@ -31,7 +31,7 @@ async function updateStatus(status) {
         packetsReceivedEl.textContent = status.io.network.packets_received;
         processesEl.textContent = status.process_count;
     } catch (err) {
-        console.log(`Failed to update status: ${err}`);
+        console.error(`Failed to update status: ${err}`);
     }
 };
 

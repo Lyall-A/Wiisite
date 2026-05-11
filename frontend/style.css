@@ -1,0 +1,57 @@
+#now-playing {
+    display: grid;
+    gap: 6px;
+    padding: 10px;
+    border-radius: 10px;
+    background: #0000000e;
+    color: rgb(58, 58, 58);
+    text-decoration: none;
+}
+
+#cover {
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: 50%;
+    grid-row: 1;
+}
+
+#track {
+    font-weight: 700;
+}
+
+#album {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+#artist {
+    font-size: 0.75rem;
+}
+
+#date {
+    font-size: 0.9rem;
+}
+
+#date::before {
+    content: "Last played ";
+}
+
+.currently-playing::before {
+    content: "Playing now" !important;
+    font-size: 1rem !important;
+}
+
+@keyframes rotating {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotate {
+    animation: rotating 5s linear infinite;
+}

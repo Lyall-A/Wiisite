@@ -14,7 +14,7 @@ async function updateIO(io) {
         discLEDEl.textContent = io.disc_led_enabled ? 'On' : 'Off';
         sensorBarEl.textContent = io.sensor_bar_enabled ? 'On' : 'Off';
     } catch (err) {
-        console.err(`Failed to update IO: ${err}`);
+        console.error(`Failed to update IO: ${err}`);
     }
 };
 
