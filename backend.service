@@ -1,0 +1,10 @@
+[Unit]
+Description=Website Backend
+After=network.target
+
+[Service]
+WorkingDirectory=/root/backend
+ExecStart=uvicorn main:app --port 5000 --reload
+
+[Install]
+WantedBy=multi-user.target

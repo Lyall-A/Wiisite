@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Lyall's Wiincredible Website!</title>
+        <script defer src="./scripts/status.js"></script>
+    </head>
+    <body>
+        <noscript>
+            <style>
+                .noscript { display: unset !important; }
+                .script { display: none; }
+            </style>
+        </noscript>
+        <style>.noscript { display: none; }</style>
+        <div style="display: flex;">
+            <div>
+                <h1>welcome to my website!</h1>
+                <p>this website is hosted entirely on my wii :3</p>
+                <p>you can also visit my main website <a href="https://lyall.lol">here</a>!</p>
+            </div>
+            <img src="./assets/wii.jpeg" style="margin-left: auto;" height="150px" alt="the wii!">
+        </div>
+        <hr>
+        <img src="./assets/wii_server.jpg" height="300px" alt="basically my wii">
+        <img src="./assets/chillaxing.jpeg" height="300px" alt="dude is chillaxing!!">
+        <img src="./assets/bobby_sauce.jpg" height="300px" alt="i be on this shit😂💨🔥">
+        <hr>
+        <h2>status (updates every 10 seconds)</h2>
+        <p class="noscript">you dont have javascript enabled!!!! cant show status</p>
+        <ul class="script">
+            <li>Uptime: <span id="uptime"></span></li>
+            <li>Running processes: <span id="processes"></span></li>
+            <li>CPU:</li>
+            <ul>
+                <li>Speed: 9999GHz</li>
+            </ul>
+            <li>Memory:</li>
+            <ul>
+                <li>Total: <span id="memory-total"></span></li>
+                <li>Used: <span id="memory-used"></span></li>
+                <li>Free: <span id="memory-free"></span></li>
+            </ul>
+            <li>Swap:</li>
+            <ul>
+                <li>Total: <span id="swap-total"></span></li>
+                <li>Used: <span id="swap-used"></span></li>
+                <li>Free: <span id="swap-free"></span></li>
+            </ul>
+            <li>Network:</li>
+            <ul>
+                <li>Data sent: <span id="data-sent"></span></li>
+                <li>Data received: <span id="data-received"></span></li>
+                <li>Packets sent: <span id="packets-sent"></span></li>
+                <li>Packets received: <span id="packets-received"></span></li>
+            </ul>
+        </ul>
+    </body>
+</html>
