@@ -3,15 +3,9 @@
     <head>
         <title>Lyall's Wiincredible Website!</title>
         <script defer src="./scripts/status.js"></script>
+        <script defer src="./scripts/io.js"></script>
     </head>
     <body>
-        <noscript>
-            <style>
-                .noscript { display: unset !important; }
-                .script { display: none; }
-            </style>
-        </noscript>
-        <style>.noscript { display: none; }</style>
         <div style="display: flex;">
             <div>
                 <h1>welcome to my website!</h1>
@@ -26,10 +20,9 @@
         <img src="./assets/bobby_sauce.jpg" height="300px" alt="i be on this shit😂💨🔥">
         <hr>
         <h2>status (updates every 10 seconds)</h2>
-        <p class="noscript">you dont have javascript enabled!!!! cant show status</p>
-        <ul class="script">
+        <ul>
             <li>Uptime: <span id="uptime"></span></li>
-            <li>Running processes: <span id="processes"></span></li>
+            <li>Running Processes: <span id="processes"></span></li>
             <li>CPU:</li>
             <ul>
                 <li>Speed: 9999GHz</li>
@@ -48,11 +41,20 @@
             </ul>
             <li>Network:</li>
             <ul>
-                <li>Data sent: <span id="data-sent"></span></li>
-                <li>Data received: <span id="data-received"></span></li>
-                <li>Packets sent: <span id="packets-sent"></span></li>
-                <li>Packets received: <span id="packets-received"></span></li>
+                <li>Data Sent: <span id="data-sent"></span></li>
+                <li>Data Received: <span id="data-received"></span></li>
+                <li>Packets Sent: <span id="packets-sent"></span></li>
+                <li>Packets Received: <span id="packets-received"></span></li>
             </ul>
+        </ul>
+        <hr>
+        <h2>interface</h2>
+        <ul>
+            <li>Fan: <span id="fan"></span></li>
+            <li>DC/DC Converter: <span id="dc-dc"></span></li>
+            <li>Disc Inserted: <span id="disc-inserted"></span> <button onclick="ejectDisc()">Eject</button></li>
+            <li>Disc LED: <span id="disc-led"></span> <button onclick="toggleDiscLED()">Toggle</button></li>
+            <li>Sensor Bar: <span id="sensor-bar"></span> <button onclick="toggleSensorBar()">Toggle</button></li>
         </ul>
     </body>
 </html>

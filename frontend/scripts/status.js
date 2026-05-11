@@ -11,7 +11,7 @@ const dataReceivedEl = document.getElementById('data-received');
 const packetsSentEl = document.getElementById('packets-sent');
 const packetsReceivedEl = document.getElementById('packets-received');
 
-(async function updateStatus() {
+async function updateStatus() {
     try {
         const status = await fetch('/api/status').then(res => res.json());
 
@@ -33,8 +33,11 @@ const packetsReceivedEl = document.getElementById('packets-received');
     } catch (err) {
         console.log(`Failed to update status: ${err}`);
     }
+};
 
-    setTimeout(updateStatus, 10 * 1000);
+(async function update() {
+    await updateStatus();
+    setTimeout(update, 10 * 1000);
 })();
 
 function parseTime(ms) {
