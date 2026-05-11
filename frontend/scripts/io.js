@@ -4,9 +4,9 @@ const discInsertedEl = document.getElementById('disc-inserted');
 const discLEDEl = document.getElementById('disc-led');
 const sensorBarEl = document.getElementById('sensor-bar');
 
-async function updateIO() {
+async function updateIO(io) {
     try {
-        const io = await fetch('/api/io').then(res => res.json());
+        if (!io) io = await fetch('/api/io').then(res => res.json());
 
         fanEl.textContent = io.fan_enabled ? 'On' : 'Off';
         dcDcEl.textContent = io.dc_dc_enabled ? 'On' : 'Off';
@@ -30,7 +30,8 @@ function ejectDisc() {
 async function toggleDiscLED() {
     try {
         await fetch('/api/io/disc_led/toggle', { method: 'POST' })
-        await updateIO();
+            .then(res => res.json())
+            .then(updateIO)
     } catch (err) {
         console.error(`Failed to toggle Disc LED: ${err}`);
     }
@@ -39,7 +40,8 @@ async function toggleDiscLED() {
 async function toggleSensorBar() {
     try {
         await fetch('/api/io/sensor_bar/toggle', { method: 'POST' })
-        await updateIO();
+            .then(res => res.json())
+            .then(updateIO)
     } catch (err) {
         console.error(`Failed to toggle Sensor Bar: ${err}`);
     }

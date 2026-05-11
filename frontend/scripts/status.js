@@ -11,9 +11,9 @@ const dataReceivedEl = document.getElementById('data-received');
 const packetsSentEl = document.getElementById('packets-sent');
 const packetsReceivedEl = document.getElementById('packets-received');
 
-async function updateStatus() {
+async function updateStatus(status) {
     try {
-        const status = await fetch('/api/status').then(res => res.json());
+        if (!status) status = await fetch('/api/status').then(res => res.json());
 
         uptimeEl.textContent = parseTime(status.current_time - status.boot_time);
         memoryTotalEl.textContent = parseSize(status.memory.usage_total);
