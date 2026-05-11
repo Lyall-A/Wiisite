@@ -1,6 +1,44 @@
 from fastapi import FastAPI
 from datetime import datetime
 import psutil
+import os
+
+def setup_pin(pin, input = False, enabled = False):
+    if not os.path.exists(f"/sys/class/gpio/gpio{pin}"):
+        with open("/sys/class/gpio/export", "w") as file:
+            file.write(str(pin))
+    
+    with open(f"/sys/class/gpio/gpio{pin}/direction", "w") as file:
+        file.write("in" if input else "high" if enabled else "low")
+
+def set_pin(pin, enabled):
+    with open(f"/sys/class/gpio/gpio{pin}/value", "w") as file:
+        file.write("1" if enabled else "0")
+
+def get_pin(pin):
+    with open(f"/sys/class/gpio/gpio{pin}/value", "r") as file:
+        return True if file.read().strip() == "1" else False
+
+# TODO: store pins in an array or dict instead of hard coding in all endpoints
+def get_pins():
+    return {
+        "fan_enabled": get_pin(490),
+        "dc_dc_enabled": get_pin(491),
+        "sensor_bar_enabled": get_pin(496),
+        "disc_inserted": get_pin(495),
+        "disc_led_enabled": get_pin(493),
+        "disc_disabled": get_pin(492)
+    }
+
+# Pins start at 488, list of pins can be found at https://wiibrew.org/wiki/Hollywood/GPIOs
+setup_pin(489, enabled=False) # Shutdown
+setup_pin(490, enabled=True) # Fan power
+setup_pin(491, enabled=True) # DC/DC converter power
+setup_pin(492, enabled=False) # Disc disable
+setup_pin(493, enabled=False) # Disc LED
+setup_pin(495, input=True) # Disc detection
+setup_pin(496, enabled=True) # Sensor bar power
+setup_pin(497, enabled=False) # Eject trigger
 
 app = FastAPI()
 
@@ -66,5 +104,23 @@ def get_status():
         "boot_time": psutil.boot_time() * 1000,
         "process_count": len(psutil.pids())
     }
+# print(get_status()
 
-# print(get_status())
+@app.get("/io")
+def get_io():
+   return get_pins()
+
+@app.post("/io/{device}/{method}")
+def post_io_toggle(device, method):
+    # TODO: check if method/device is valid
+    if method == "enable":
+        if device == "disc_led": set_pin(493, True)
+        elif device == "sensor_bar": set_pin(496, True)
+    if method == "disable":
+        if device == "disc_led": set_pin(493, False)
+        elif device == "sensor_bar": set_pin(496, False)
+    if method == "toggle":
+        if device == "disc_led": set_pin(493, not get_pin(493))
+        elif device == "sensor_bar": set_pin(496, not get_pin(496))
+
+    return get_pins()
