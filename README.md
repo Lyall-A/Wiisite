@@ -1,3 +1,8 @@
+# Wiisite
+Nginx frontend and FastAPI backend for the Wii
+
+Can be viewed [here](https://wii.lyall.lol/)
+
 ## Packages
 * `nginx`
 * `uvicorn`
