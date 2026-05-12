@@ -59,3 +59,17 @@ body {
 .rotate {
     animation: rotating 5s linear infinite;
 }
+
+#messages {
+    overflow: auto;
+    background-color: rgb(218, 218, 218);
+    width: 750px;
+    height: 250px;
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    background-color: rgb(177, 177, 177);
+}

@@ -18,7 +18,7 @@ const nowPlayingEl = document.getElementById('now-playing');
         albumEl.textContent = nowPlaying.album;
         artistEl.textContent = nowPlaying.artist;
         coverEl.src = nowPlaying.covers?.find(cover => cover.size === 'original')?.url;
-        dateEl.textContent = nowPlaying.date ? parseTimeAgo(Date.now() - nowPlaying.date) : '';
+        dateEl.textContent = nowPlaying.date ? `${parseTime(Date.now() - nowPlaying.date)} ago` : '';
         if (nowPlaying.currentlyPlaying) {
             dateEl.classList.add('currently-playing');
             coverEl.classList.add('rotate');
@@ -32,18 +32,3 @@ const nowPlayingEl = document.getElementById('now-playing');
 
     setTimeout(updateNowPlaying, 5 * 1000);
 })();
-
-function parseTimeAgo(ms) {
-    const s = Math.floor(ms / 1000);
-    const m = Math.floor(s / 60);
-    const h = Math.floor(m / 60);
-    const d = Math.floor(h / 24);
-
-    const parsed =
-        d ? `${toPlural(d, 'day')}, ${toPlural(h % 24, 'hour')} ago` :
-        h ? `${toPlural(h, 'hour')}, ${toPlural(m % 60, 'min')} ago` :
-        m ? `${toPlural(m, 'min')}, ${toPlural(s % 60, 'sec')} ago` :
-        `${toPlural(Math.floor(ms / 1000), 'sec')} ago`;
-
-    return parsed;
-}

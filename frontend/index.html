@@ -3,9 +3,11 @@
     <head>
         <title>Lyall's Wiincredible Website!</title>
         <link rel="stylesheet" href="./style.css">
+        <script src="./scripts/main.js"></script>
         <script defer src="./scripts/status.js"></script>
         <script defer src="./scripts/io.js"></script>
         <script defer src="./scripts/now-playing.js"></script>
+        <script defer src="./scripts/chat.js"></script>
     </head>
     <body>
         <div style="display: flex;">
@@ -17,9 +19,17 @@
             <img src="./assets/wii.jpeg" style="margin-left: auto;" height="150px" alt="the wii!">
         </div>
         <hr>
-        <img src="./assets/wii_server.jpg" height="300px" alt="basically my wii">
-        <img src="./assets/chillaxing.jpeg" height="300px" alt="dude is chillaxing!!">
-        <img src="./assets/bobby_sauce.jpg" height="300px" alt="i be on this shit😂💨🔥">
+        <!-- <img src="./assets/wii_server.jpg" height="300px" alt="basically my wii"> -->
+        <!-- <img src="./assets/chillaxing.jpeg" height="300px" alt="dude is chillaxing!!"> -->
+        <!-- <img src="./assets/bobby_sauce.jpg" height="300px" alt="i be on this shit😂💨🔥"> -->
+        <div id="chat">
+            <div id="messages"></div>
+            <div>
+                <textarea id="message" placeholder="Message"></textarea>
+                <input id="username" type="text" placeholder="Username" value="Anonymous">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
         <a style="float: right; display: none;" id="now-playing">
             <span id="track"></span>
             <span id="album"></span>

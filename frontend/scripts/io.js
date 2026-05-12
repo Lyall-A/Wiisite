@@ -6,7 +6,7 @@ const sensorBarEl = document.getElementById('sensor-bar');
 
 async function updateIO(io) {
     try {
-        if (!io) io = await fetch('/api/io').then(res => res.json());
+        if (!io) io = await fetch(`${apiBaseUrl}/io`).then(res => res.json());
 
         fanEl.textContent = io.fan_enabled ? 'On' : 'Off';
         dcDcEl.textContent = io.dc_dc_enabled ? 'On' : 'Off';
@@ -29,7 +29,7 @@ function ejectDisc() {
 
 async function toggleDiscLED() {
     try {
-        await fetch('/api/io/disc_led/toggle', { method: 'POST' })
+        await fetch(`${apiBaseUrl}/io/disc_led/toggle`, { method: 'POST' })
             .then(res => res.json())
             .then(updateIO)
     } catch (err) {
@@ -39,7 +39,7 @@ async function toggleDiscLED() {
 
 async function toggleSensorBar() {
     try {
-        await fetch('/api/io/sensor_bar/toggle', { method: 'POST' })
+        await fetch(`${apiBaseUrl}/io/sensor_bar/toggle`, { method: 'POST' })
             .then(res => res.json())
             .then(updateIO)
     } catch (err) {

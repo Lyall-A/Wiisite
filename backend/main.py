@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware # temp
 from datetime import datetime
 import psutil
 import os
@@ -31,16 +32,27 @@ def get_pins():
     }
 
 # Pins start at 488, list of pins can be found at https://wiibrew.org/wiki/Hollywood/GPIOs
-setup_pin(489, enabled=False) # Shutdown
-setup_pin(490, enabled=True) # Fan power
-setup_pin(491, enabled=True) # DC/DC converter power
-setup_pin(492, enabled=False) # Disc disable
-setup_pin(493, enabled=False) # Disc LED
-setup_pin(495, input=True) # Disc detection
-setup_pin(496, enabled=True) # Sensor bar power
-setup_pin(497, enabled=False) # Eject trigger
+# setup_pin(489, enabled=False) # Shutdown
+# setup_pin(490, enabled=True) # Fan power
+# setup_pin(491, enabled=True) # DC/DC converter power
+# setup_pin(492, enabled=False) # Disc disable
+# setup_pin(493, enabled=False) # Disc LED
+# setup_pin(495, input=True) # Disc detection
+# setup_pin(496, enabled=True) # Sensor bar power
+# setup_pin(497, enabled=False) # Eject trigger
+
+messages = []
 
 app = FastAPI()
+
+# temp
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/status")
 def get_status():
@@ -124,3 +136,30 @@ def post_io_toggle(device, method):
         elif device == "sensor_bar": set_pin(496, not get_pin(496))
 
     return get_pins()
+
+@app.get("/chat")
+def get_chat(limit = 25, offset = 0, sort = "desc"):
+    descending = sort == "desc"
+    sliced_messages = messages[offset:offset + limit]
+    sorted_messages = sorted(sliced_messages, key=lambda message: message["date"], reverse=descending)
+    return {
+        "offset": offset,
+        "limit": limit,
+        "total": len(messages),
+        "descending": descending,
+        "messages": sorted_messages
+    }
+
+@app.post("/chat")
+def post_chat(content, username = "Anonymous"):
+    message = {
+        "content": content,
+        "username": username,
+        "date": datetime.now().timestamp() * 1000,
+    }
+
+    global messages
+    messages.append(message)
+    messages = messages[-100:] # truncate old messages
+    
+    return message
